@@ -3,7 +3,7 @@ import sys
 import threading
 
 """Wait for incoming data from the server
-.decode will for the data into a string
+.decode will form the data into a string
 """
 
 
@@ -27,8 +27,9 @@ desHost = input("Host: ")
 desPort = int(input("Port: "))
 # Attempts to connect to the server
 try:
-    socketVar = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socketVar.connect((desHost, desPort))
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as socketVar:
+        socketVar.connect((desHost, desPort))
+        socketVar.listen()
 except socket.error as e:
     print(f"Could not make connection to server")
     print(f"Press enter to exit: {e}")
